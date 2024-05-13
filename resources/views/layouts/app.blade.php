@@ -46,12 +46,17 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('customers.index') }}">Lista klientów</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('customers.create') }}">Dodaj klienta</a></li>
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <li class="nav-item dropdown  mx-0 mx-lg-1">
+                        <a id="navbarDropdown" class="nav-link py-3 px-0 px-lg-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('profile') }}">Mój profil</a>
+                            @if(Auth::user()->is_admin)
+                                <a class="dropdown-item" href="{{ route('admin.panel') }}">Admin panel</a>
+                            @endif
+                            <a class="dropdown-item" href="{{ route('password.change') }}">Zmiana hasła</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

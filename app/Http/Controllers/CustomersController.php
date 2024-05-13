@@ -12,7 +12,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('user_id', auth()->id())->get();
 
         return view('customers.index', ['customers' => $customers]);
     }
@@ -40,6 +40,7 @@ class CustomersController extends Controller
         $customer->name = $request->name;
         $customer->address = $request->address;
         $customer->nip = $request->nip;
+        $customer->user_id = auth()->id();
 
         $customer->save();
 
@@ -51,7 +52,7 @@ class CustomersController extends Controller
      */
     public function show(string $id)
     {
-        $customer = Customer::with('invoices')->where('id', $id)->firstOrFail();
+        $customer = Customer::with('invoices')->where('id', $id)->where('user_id', auth()->id())->firstOrFail();
 
         return view('customers.single', compact('customer'));
     }
@@ -61,7 +62,13 @@ class CustomersController extends Controller
      */
     public function edit(string $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::where('id', $id)->where('user_id', auth()->id())->first();
+
+        if(!$customer) {
+            abort(403);
+            return;
+        }
+
         return view('customers.edit', compact('customer'));
     }
 
@@ -70,7 +77,12 @@ class CustomersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::where('id', $id)->where('user_id', auth()->id())->first();
+
+        if(!$customer) {
+            abort(403);
+            return;
+        }
 
         $customer->name = $request->name;
         $customer->address = $request->address;
@@ -86,8 +98,13 @@ class CustomersController extends Controller
      */
     public function destroy(string $id)
     {
-        Customer::destroy($id);
+        if(Customer::where('id', $id)->where('user_id', auth()->id())->first()) {
+            Customer::destroy($id);
+            return redirect()->route('customers.index')->with('message','Usunieto klienta');
+        } else {
+            abort(403);
+            return;
+        }
 
-        return redirect()->route('customers.index')->with('message','Usunieto klienta');
     }
 }

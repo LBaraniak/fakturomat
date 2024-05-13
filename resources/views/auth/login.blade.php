@@ -5,6 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                @if (session('message'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">

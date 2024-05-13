@@ -35,7 +35,7 @@
                             <select name="customer" class="form-select" id="inputGroupSelect01">
                                 <option selected>wybierz...</option>
 
-                                @foreach(\App\Models\Customer::all() as $item)
+                                @foreach(\App\Models\Customer::where('user_id', auth()->id())->get() as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
