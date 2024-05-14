@@ -44,6 +44,10 @@
                         <td>{{ $invoice->customer->name }}</td>
                         <td>
                             <a href="{{ route('invoices.edit', ['id' => $invoice->id]) }}" class="btn btn-primary">Edytuj</a>
+                            @if(count($invoice->attachments) > 0)
+                            <a href="{{ Storage::url($invoice->attachments[0]->path) }}" class="btn btn-warning">Załącznik</a>
+                            @endif
+
                             <form method="POST" action="{{ route('invoices.delete', ['id' => $invoice->id]) }}">
                                 @csrf
                                 @method('delete')

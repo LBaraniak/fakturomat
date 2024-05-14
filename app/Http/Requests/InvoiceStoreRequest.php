@@ -26,7 +26,8 @@ class InvoiceStoreRequest extends FormRequest
                 'number' => 'required',
                 'date' => 'required|date',
                 'total' => 'required|numeric',
-                'customer' => 'required|integer'
+                'customer' => 'required|integer',
+                'attachment' => 'file|max:2048'
             ];
     }
 }

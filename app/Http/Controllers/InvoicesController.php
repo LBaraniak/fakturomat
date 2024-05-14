@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceStoreRequest;
+use App\Models\Attachment;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class InvoicesController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::with('customer')->where('user_id', auth()->id())->get();
+        $invoices = Invoice::with('customer', 'attachments')->where('user_id', auth()->id())->get();
         return view('invoices.index', ['invoices' => $invoices]);
     }
 
@@ -42,6 +43,15 @@ class InvoicesController extends Controller
 
         $invoice->save();
 
+        if($request->attachment) {
+            $path = $request->attachment->store('public/attachments');
+            $attachment = new Attachment();
+            $attachment->path = $path;
+            $attachment->invoice_id = $invoice->id;
+
+            $attachment->save();
+        }
+
         return redirect()->route('invoices.index')->with('message', 'Faktura dodana poprawnie');
     }
 
@@ -67,6 +77,7 @@ class InvoicesController extends Controller
     public function delete(Request $request, $id)
     {
         if(Invoice::where('id', $id)->where('user_id', auth()->id())->first()) {
+            Attachment::where('invoice_id', $id)->delete();
             Invoice::destroy($id);
             return redirect()->route('invoices.index')->with('message', 'Faktura zostałą usunięta');
         } else {

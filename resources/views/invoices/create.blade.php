@@ -27,7 +27,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-7">
 
-                <form action="{{ route('invoices.store') }}" method="POST" id="contactForm">
+                <form enctype="multipart/form-data" action="{{ route('invoices.store') }}" method="POST" id="contactForm">
                     {{ csrf_field() }}
                     <div class="form-floating mb-3">
                         <div class="input-group mb-3">
@@ -55,6 +55,11 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="total" name="total" type="text" placeholder="Wpisz kwotę"/>
                         <label for="total">Kwota</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="attachment" name="attachment" type="file" placeholder="Wybierz plik"/>
+                        <label for="total">Załącznik</label>
                     </div>
 
                     <!-- Submit Button-->
