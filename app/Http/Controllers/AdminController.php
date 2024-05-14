@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 {
     public function changeAccessForUser($user_id)
     {
-        if(!auth()->check() || !auth()->user()->is_admin) {
+        if(!Gate::allows('see-admin-panel')) {
             abort(403);
-            return;
         }
         $user = \App\Models\User::findOrFail($user_id);
         $user->is_banned = !$user->is_banned;

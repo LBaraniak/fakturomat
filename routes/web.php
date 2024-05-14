@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function (){
     Route::resource('/klienci', CustomersController::class, ['names' => 'customers']);
     Route::view('/profile', 'auth.profile')->name('profile');
     Route::view('/zmiana-hasla', 'auth.passwords.change')->name('password.change');
+    Route::view('/statystyki', 'stats')->name('stats');
 
     Route::middleware('is_admin')->prefix('admin')->group(function () {
        Route::view('panel', 'admin.panel')->name('admin.panel');

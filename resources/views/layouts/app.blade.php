@@ -53,9 +53,12 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('profile') }}">Mój profil</a>
-                            @if(Auth::user()->is_admin)
+                            @can ('see-admin-panel')
                                 <a class="dropdown-item" href="{{ route('admin.panel') }}">Admin panel</a>
-                            @endif
+                            @endcan
+                            @can ('see-statistics')
+                                <a class="dropdown-item" href="{{ route('stats') }}">Statystyki</a>
+                            @endcan
                             <a class="dropdown-item" href="{{ route('password.change') }}">Zmiana hasła</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

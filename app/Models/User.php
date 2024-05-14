@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getIsAdminAttribute()
+    {
+        return $this->role_id = 2;
+    }
+
+    public function getIsAnalystAttribute()
+    {
+        return $this->role_id = 3;
+    }
 }
