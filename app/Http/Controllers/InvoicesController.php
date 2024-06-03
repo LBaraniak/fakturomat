@@ -7,6 +7,8 @@ use App\Models\Attachment;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class InvoicesController extends Controller
 {
     public function index()
@@ -84,5 +86,16 @@ class InvoicesController extends Controller
             abort(403);
             return;
         }
+    }
+
+    public function saveAsPdf($id)
+    {
+        $invoice = Invoice::with('customer')->where('id', $id)->where('user_id', auth()->id())->first();
+        if(!$invoice) {
+            abort(403);
+        }
+
+        $pdf = Pdf::loadView('invoices.pdf', ['invoice' => $invoice]);
+        return $pdf->download('invoice.pdf');
     }
 }

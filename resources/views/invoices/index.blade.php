@@ -47,6 +47,8 @@
                             @if(count($invoice->attachments) > 0)
                             <a href="{{ Storage::url($invoice->attachments[0]->path) }}" class="btn btn-warning">Załącznik</a>
                             @endif
+                            <a href="{{ route('invoices.export', ['id' => $invoice->id]) }}" class="btn btn-info">Pobierz PDF</a>
+
 
                             <form method="POST" action="{{ route('invoices.delete', ['id' => $invoice->id]) }}">
                                 @csrf
