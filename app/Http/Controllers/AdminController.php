@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -17,5 +19,13 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->route('admin.panel')->with('message', 'Zmieniono dostęp dla uzytkownika');
+    }
+
+    public function exportUsers()
+    {
+        if(!Gate::allows('see-admin-panel')) {
+            abort(403);
+        }
+        return Excel::download(new UsersExport, 'users.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }

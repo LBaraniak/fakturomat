@@ -55,6 +55,7 @@
 
             </tbody>
         </table>
+            <a href="{{ route('users.export') }}" class="btn btn-success">Eksportuj</a>
     </div>
 </section>
 @endsection
