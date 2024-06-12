@@ -35,6 +35,12 @@ Route::middleware('auth')->group(function (){
     Route::view('/zmiana-hasla', 'auth.passwords.change')->name('password.change');
     Route::view('/statystyki', 'stats')->name('stats');
 
+    Route::get('/tokens/create', function () {
+        $token = Auth::user()->createToken('klucz');
+
+        return ['token' => $token->plainTextToken];
+    });
+
     Route::middleware('is_admin')->prefix('admin')->group(function () {
        Route::view('panel', 'admin.panel')->name('admin.panel');
        Route::put('zmien-dostep/{user_id}', [AdminController::class, 'changeAccessForUser'])->name('admin.change');
