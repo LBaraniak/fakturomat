@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceStoreRequest;
+use App\Jobs\AddAttachment;
 use App\Models\Attachment;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -47,11 +48,7 @@ class InvoicesController extends Controller
 
         if($request->attachment) {
             $path = $request->attachment->store('public/attachments');
-            $attachment = new Attachment();
-            $attachment->path = $path;
-            $attachment->invoice_id = $invoice->id;
-
-            $attachment->save();
+            dispatch(new AddAttachment($path, $invoice->id));
         }
 
         return redirect()->route('invoices.index')->with('message', 'Faktura dodana poprawnie');
