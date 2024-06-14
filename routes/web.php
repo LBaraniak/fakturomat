@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\InvoicesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/locale/{lang}', function ($lang) {
+    Session::put('locale', $lang);
+    return redirect()->back();
+})->name('language.change');
 
 Route::middleware('auth')->group(function (){
     Route::get('/faktury', [InvoicesController::class, 'index'])->name('invoices.index');

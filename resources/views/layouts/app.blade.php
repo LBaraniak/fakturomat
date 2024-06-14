@@ -31,7 +31,7 @@
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('navigation.login') }}</a>
                         </li>
                     @endif
 
@@ -94,9 +94,9 @@
             </div>
             <!-- Footer Social Icons-->
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Around the Web</h4>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                <h4 class="text-uppercase mb-4">{{ __('Change language') }}</h4>
+                <a class="btn btn-outline-light btn-social mx-1" href="{{ route('language.change', ['lang' => 'pl']) }}">PL</a>
+                <a class="btn btn-outline-light btn-social mx-1" href="{{ route('language.change', ['lang' => 'en']) }}">EN</a>
             </div>
             <!-- Footer About Text-->
             <div class="col-lg-4">
