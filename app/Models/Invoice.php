@@ -23,4 +23,14 @@ class Invoice extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function calculateVat()
+    {
+        return $this->total - $this->calculateNetValue();
+    }
+
+    public function calculateNetValue()
+    {
+        return $this->total / 1.23;
+    }
 }
