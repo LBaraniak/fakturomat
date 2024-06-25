@@ -62,5 +62,8 @@
             </tbody>
         </table>
     </div>
+    <div class="container">
+        @livewire('invoice-overview')
+    </div>
 </section>
 @endsection
