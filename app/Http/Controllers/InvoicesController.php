@@ -6,6 +6,7 @@ use App\Http\Requests\InvoiceStoreRequest;
 use App\Jobs\AddAttachment;
 use App\Models\Attachment;
 use App\Models\Invoice;
+use App\Services\NbpService;
 use Illuminate\Http\Request;
 
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -18,9 +19,10 @@ class InvoicesController extends Controller
         return view('invoices.index', ['invoices' => $invoices]);
     }
 
-    public function create()
+    public function create(NbpService $nbpService)
     {
-        return view('invoices.create');
+        $usd = $nbpService->getUsdRate();
+        return view('invoices.create', compact('usd'));
     }
 
     public function edit($id)

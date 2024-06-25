@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Services\ApiService;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -13,7 +14,6 @@ class CustomersController extends Controller
     public function index()
     {
         $customers = Customer::where('user_id', auth()->id())->get();
-
         return view('customers.index', ['customers' => $customers]);
     }
 

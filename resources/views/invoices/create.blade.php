@@ -13,6 +13,9 @@
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
         </div>
+
+        <p>Aktualny kurs dolara to: {{ $usd ?? 'N/A' }}</p>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
