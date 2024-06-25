@@ -24,4 +24,23 @@ class NbpService
 
         return null;
     }
+
+    public function getRates()
+    {
+        $client = new Client();
+
+        $response = $client->request('GET', 'http://api.nbp.pl/api/exchangerates/tables/A/', [
+            'headers' => [
+                'Accept' => 'application/json',
+            ]
+        ]);
+
+
+        if ($response->getStatusCode() == 200) {
+            $content = json_decode($response->getBody());
+            return $content[0]->rates;
+        }
+
+        return null;
+    }
 }

@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    @vite(['resources/sass/app.scss','resources/js/app.js'])
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -85,12 +86,10 @@
         <div class="row">
             <!-- Footer Location-->
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Kontakt</h4>
-                <p class="lead mb-0">
-                    Łukasz Baraniak
-                    <br />
-                    Przykładowe dane kontaktowe
-                </p>
+                <h4 class="text-uppercase mb-4">Widget</h4>
+                <div id="app">
+                    <rates-widget></rates-widget>
+                </div>
             </div>
             <!-- Footer Social Icons-->
             <div class="col-lg-4 mb-5 mb-lg-0">
